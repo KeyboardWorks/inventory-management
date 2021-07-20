@@ -8,7 +8,7 @@ CREATE TABLE product_category (
     code VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL,
     active VARCHAR(1),
-    note VARCHAR(255),
+    note TEXT,
     fk_product_category_parent VARCHAR(36),
 
     UNIQUE(code),

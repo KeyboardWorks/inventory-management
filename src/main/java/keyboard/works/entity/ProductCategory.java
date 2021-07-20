@@ -8,6 +8,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,6 +42,7 @@ public class ProductCategory extends BaseEntity {
 	@Convert(converter = BooleanToStringConverter.class)
 	private Boolean active;
 	
+	@Lob
 	@Column(name = "note")
 	private String note;
 	
