@@ -1,11 +1,12 @@
 package keyboard.works.model.response;
 
+import keyboard.works.entity.UnitOfMeasureType;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BaseProductCategoryResponse {
+public class UnitOfMeasureResponse {
 
 	private String id;
 	
@@ -13,8 +14,6 @@ public class BaseProductCategoryResponse {
 	
 	private String name;
 	
-	private Boolean active;
-	
-	private String note;	
+	private UnitOfMeasureType type;
 	
 }
