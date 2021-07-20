@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,40 +16,23 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
-import keyboard.works.entity.converter.BooleanToStringConverter;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "product_category")
-public class ProductCategory extends BaseEntity {
+@Table(name = "product")
+public class Product extends BaseEntity {
 
-	@Column(name = "code", nullable = false, unique = true)
+	@Column(name = "code")
 	private String code;
 	
-	@Column(name = "name", nullable = false)
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name = "active")
-	@Convert(converter = BooleanToStringConverter.class)
-	private Boolean active;
-	
-	@Column(name = "note")
-	private String note;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_product_category_parent")
 	@LazyToOne(LazyToOneOption.PROXY)
-	private ProductCategory parent;
+	private ProductCategory productCategory;
 	
-	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.EXTRA)
-	private Set<ProductCategory> childs;
+	private Set<ProductPackaging> packagings;
 	
 }
