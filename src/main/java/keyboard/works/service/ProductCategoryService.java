@@ -6,19 +6,19 @@ import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import keyboard.works.entity.ProductCategory;
 import keyboard.works.model.request.ProductCategoryRequest;
-import keyboard.works.model.response.ProductCategoryResponse;
 
 @Validated
 public interface ProductCategoryService {
 
-	List<ProductCategoryResponse> getProductCategories();
+	List<ProductCategory> getProductCategories();
 	
-	ProductCategoryResponse getProductCategory(String id);
+	ProductCategory getProductCategory(String id);
 	
-	ProductCategoryResponse createProductCategory(@Valid ProductCategoryRequest request);
+	ProductCategory createProductCategory(@Valid ProductCategoryRequest request);
 	
-	ProductCategoryResponse updateProductCategory(String id, @Valid ProductCategoryRequest request);
+	ProductCategory updateProductCategory(String id, @Valid ProductCategoryRequest request);
 	
 	void deleteProductCategory(String id);
 	

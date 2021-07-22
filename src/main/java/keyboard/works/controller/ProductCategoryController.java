@@ -18,6 +18,7 @@ import keyboard.works.model.request.ProductCategoryRequest;
 import keyboard.works.model.response.ProductCategoryResponse;
 import keyboard.works.service.ProductCategoryService;
 import keyboard.works.utils.GenericResponseHelper;
+import keyboard.works.utils.ResponseHelper;
 
 @RestController
 @RequestMapping(
@@ -31,17 +32,26 @@ public class ProductCategoryController {
 	
 	@GetMapping
 	public GenericResponse<List<ProductCategoryResponse>> getProductCategories() {
-		return GenericResponseHelper.ok(productCategoryService.getProductCategories());
+		
+		List<ProductCategoryResponse> responses = ResponseHelper.createResponses(ProductCategoryResponse.class, productCategoryService.getProductCategories());
+		
+		return GenericResponseHelper.ok(responses);
 	}
 	
 	@GetMapping(path = "{id}")
 	public GenericResponse<ProductCategoryResponse> getProductCategory(@PathVariable("id") String id) {
-		return GenericResponseHelper.ok(productCategoryService.getProductCategory(id));
+		
+		ProductCategoryResponse response = ResponseHelper.createResponse(ProductCategoryResponse.class, productCategoryService.getProductCategory(id));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public GenericResponse<ProductCategoryResponse> createProductCategory(@RequestBody ProductCategoryRequest request) {
-		return GenericResponseHelper.ok(productCategoryService.createProductCategory(request));
+		
+		ProductCategoryResponse response = ResponseHelper.createResponse(ProductCategoryResponse.class, productCategoryService.createProductCategory(request));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@PutMapping(
@@ -49,7 +59,10 @@ public class ProductCategoryController {
 		consumes = MediaType.APPLICATION_JSON_VALUE
 	)
 	public GenericResponse<ProductCategoryResponse> updateProductCategory(@PathVariable("id") String id, @RequestBody ProductCategoryRequest request) {
-		return GenericResponseHelper.ok(productCategoryService.updateProductCategory(id, request));
+		
+		ProductCategoryResponse response = ResponseHelper.createResponse(ProductCategoryResponse.class, productCategoryService.updateProductCategory(id, request));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@DeleteMapping(path = "{id}")
