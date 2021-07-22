@@ -15,6 +15,7 @@ public class InventoryManagementApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setSkipNullEnabled(true);
 		return modelMapper;
 	}
 	
