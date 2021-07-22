@@ -18,7 +18,7 @@ public interface ProductService {
 	
 	Product createProduct(@Valid ProductRequest request);
 	
-	Product updateProduct(String id, ProductRequest request);
+	Product updateProduct(String id, @Valid ProductRequest request);
 	
 	void deleteProduct(String id);
 	

@@ -13,7 +13,7 @@ public interface ProductPackagingService {
 
 	ProductPackaging createProductPacking(@Valid ProductPackagingRequest request);
 	
-	ProductPackaging updateProductPackaging(String id, ProductPackagingRequest request);
+	ProductPackaging updateProductPackaging(String id, @Valid ProductPackagingRequest request);
 	
 	ProductPackaging createDefaultProductPackaging(Product product);
 	
