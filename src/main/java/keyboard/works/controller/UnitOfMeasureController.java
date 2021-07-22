@@ -18,6 +18,7 @@ import keyboard.works.model.request.UnitOfMeasureRequest;
 import keyboard.works.model.response.UnitOfMeasureResponse;
 import keyboard.works.service.UnitOfMeasureService;
 import keyboard.works.utils.GenericResponseHelper;
+import keyboard.works.utils.ResponseHelper;
 
 @RestController
 @RequestMapping(
@@ -31,22 +32,34 @@ public class UnitOfMeasureController {
 	
 	@GetMapping
 	public GenericResponse<List<UnitOfMeasureResponse>> getUnitOfMeasures() {
-		return GenericResponseHelper.ok(unitOfMeasureService.getUnitOfMeasures());
+		
+		List<UnitOfMeasureResponse> responses = ResponseHelper.createResponses(UnitOfMeasureResponse.class, unitOfMeasureService.getUnitOfMeasures());
+		
+		return GenericResponseHelper.ok(responses);
 	}
 	
 	@GetMapping(path = "{id}")
 	public GenericResponse<UnitOfMeasureResponse> getUnitOfMeasure(@PathVariable("id") String id) {
-		return GenericResponseHelper.ok(unitOfMeasureService.getUnitOfMeasure(id));
+		
+		UnitOfMeasureResponse response = ResponseHelper.createResponse(UnitOfMeasureResponse.class, unitOfMeasureService.getUnitOfMeasure(id));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public GenericResponse<UnitOfMeasureResponse> createUnitOfMeasure(@RequestBody UnitOfMeasureRequest request) {
-		return GenericResponseHelper.ok(unitOfMeasureService.createUnitOfMeasure(request));
+		
+		UnitOfMeasureResponse response = ResponseHelper.createResponse(UnitOfMeasureResponse.class, unitOfMeasureService.createUnitOfMeasure(request));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@PutMapping(path = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public GenericResponse<UnitOfMeasureResponse> updateUnitOfMeasure(@PathVariable("id") String id, @RequestBody UnitOfMeasureRequest request) {
-		return GenericResponseHelper.ok(unitOfMeasureService.updateUnitOfMeasure(id, request));
+		
+		UnitOfMeasureResponse response = ResponseHelper.createResponse(UnitOfMeasureResponse.class, unitOfMeasureService.updateUnitOfMeasure(id, request));
+		
+		return GenericResponseHelper.ok(response);
 	}
 	
 	@DeleteMapping(path = "{id}")
