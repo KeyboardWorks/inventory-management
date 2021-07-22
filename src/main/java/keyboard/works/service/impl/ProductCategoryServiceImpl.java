@@ -10,33 +10,31 @@ import org.springframework.stereotype.Service;
 
 import keyboard.works.entity.ProductCategory;
 import keyboard.works.model.request.ProductCategoryRequest;
-import keyboard.works.model.response.ProductCategoryResponse;
 import keyboard.works.repository.ProductCategoryRepository;
 import keyboard.works.service.ProductCategoryService;
-import keyboard.works.utils.ResponseHelper;
 
 @Service
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Autowired
 	private ProductCategoryRepository productCategoryRepository;
 	
 	@Override
-	public List<ProductCategoryResponse> getProductCategories() {
-		return ResponseHelper.createResponses(ProductCategoryResponse.class, productCategoryRepository.findAll());
+	public List<ProductCategory> getProductCategories() {
+		return productCategoryRepository.findAll();
 	}
 
 	@Override
-	public ProductCategoryResponse getProductCategory(String id) {
+	public ProductCategory getProductCategory(String id) {
 		
 		ProductCategory productCategory = loadProductCategory(id);
 		
-		return ResponseHelper.createResponse(ProductCategoryResponse.class, productCategory);
+		return productCategory;
 	}
 
 	@Override
-	public ProductCategoryResponse createProductCategory(ProductCategoryRequest request) {
+	public ProductCategory createProductCategory(ProductCategoryRequest request) {
 		
 		ProductCategory productCategory = new ProductCategory();
 		BeanUtils.copyProperties(request, productCategory);
@@ -45,11 +43,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		
 		productCategory = productCategoryRepository.save(productCategory);
 		
-		return ResponseHelper.createResponse(ProductCategoryResponse.class, productCategory);
+		return productCategory;
 	}
 
 	@Override
-	public ProductCategoryResponse updateProductCategory(String id, ProductCategoryRequest request) {
+	public ProductCategory updateProductCategory(String id, ProductCategoryRequest request) {
 		
 		ProductCategory productCategory = loadProductCategory(id);
 		
@@ -59,7 +57,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		
 		productCategory = productCategoryRepository.save(productCategory);
 		
-		return ResponseHelper.createResponse(ProductCategoryResponse.class, productCategory);
+		return productCategory;
 	}
 
 	@Override
