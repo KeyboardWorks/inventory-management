@@ -22,4 +22,6 @@ public interface UnitOfMeasureService {
 	
 	void deleteUnitOfMeasure(String id);
 	
+	UnitOfMeasure getDefaultUnitOfMeasure();
+	
 }

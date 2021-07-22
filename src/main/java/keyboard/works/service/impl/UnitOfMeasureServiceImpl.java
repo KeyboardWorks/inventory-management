@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import keyboard.works.entity.UnitOfMeasure;
+import keyboard.works.entity.UnitOfMeasureType;
 import keyboard.works.model.request.UnitOfMeasureRequest;
 import keyboard.works.repository.UnitOfMeasureRepository;
 import keyboard.works.service.UnitOfMeasureService;
@@ -70,6 +71,29 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 			throw new RuntimeException("Unit of measure not found !");
 		});
 	
+		return unitOfMeasure;
+	}
+
+	@Override
+	public UnitOfMeasure getDefaultUnitOfMeasure() {
+		
+		UnitOfMeasure unitOfMeasure = unitOfMeasureRepository.findByCode("PCS").orElse(null);
+		
+		if(unitOfMeasure == null) 
+			unitOfMeasure = createDefaultUnitOfMeasure();
+			
+		return unitOfMeasure;
+	}
+	
+	private UnitOfMeasure createDefaultUnitOfMeasure() {
+		
+		UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
+		unitOfMeasure.setCode("PCS");
+		unitOfMeasure.setName("Piece");
+		unitOfMeasure.setType(UnitOfMeasureType.UNIT);
+		
+		unitOfMeasure = unitOfMeasureRepository.save(unitOfMeasure);
+		
 		return unitOfMeasure;
 	}
 	

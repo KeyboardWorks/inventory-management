@@ -12,15 +12,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "product_packaging")
 public class ProductPackaging extends BaseEntity {

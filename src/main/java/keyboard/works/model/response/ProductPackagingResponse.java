@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class ProductPackagingResponse {
 
+	private String id;
+	
 	private BigDecimal quantityToBase;
 	
 	private UnitOfMeasureResponse unitOfMeasure;

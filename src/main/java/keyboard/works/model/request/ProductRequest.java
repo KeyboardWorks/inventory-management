@@ -21,8 +21,8 @@ public class ProductRequest {
 	@Size(message = "Name length must greather than 4 ", min = 5)
 	private String name;
 	
-	@NotNull(message = "Unit Of Measure is mandatory")
-	@NotBlank(message = "Unit Of Measure cannot blank")
-	private String unitOfMeasure;
+	@NotNull(message = "Product Category is mandatory")
+	@NotBlank(message = "Product Category cannot blank")
+	private String productCategory;
 	
 }
