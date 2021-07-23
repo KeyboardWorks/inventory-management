@@ -57,19 +57,12 @@ public class ProductPackagingServiceImpl implements ProductPackagingService {
 		
 		BeanUtils.copyProperties(request, productPackaging);
 		
-		setUnitOfMeasureIfRequestNotNull(productPackaging, request);
+		UnitOfMeasure unitOfMeasure = unitOfMeasureService.getUnitOfMeasure(request.getUnitOfMeasure());
+		productPackaging.setUnitOfMeasure(unitOfMeasure);
 		
 		productPackaging = productPackagingRepository.save(productPackaging);
 		
 		return productPackaging;
-	}
-	
-	private void setUnitOfMeasureIfRequestNotNull(ProductPackaging productPackaging, ProductPackagingRequest request) {
-		if(request.getUnitOfMeasure() != null && !request.getUnitOfMeasure().isBlank()) {
-			UnitOfMeasure unitOfMeasure = unitOfMeasureService.getUnitOfMeasure(request.getUnitOfMeasure());
-			
-			productPackaging.setUnitOfMeasure(unitOfMeasure);
-		}
 	}
 	
 	@Override
