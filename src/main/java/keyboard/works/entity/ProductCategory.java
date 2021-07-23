@@ -51,6 +51,8 @@ public class ProductCategory extends BaseEntity {
 	@LazyToOne(LazyToOneOption.PROXY)
 	private ProductCategory parent;
 	
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.EXTRA)
 	private Set<ProductCategory> childs;
