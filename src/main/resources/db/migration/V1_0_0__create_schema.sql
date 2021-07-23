@@ -24,7 +24,7 @@ CREATE TABLE product (
     last_modified_date_time TIMESTAMP,
     code VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL,
-    fk_product_category_parent VARCHAR(36),
+    fk_product_category VARCHAR(36),
 
     UNIQUE(code),
     PRIMARY KEY(id)
