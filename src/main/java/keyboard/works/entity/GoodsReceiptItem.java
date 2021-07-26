@@ -1,8 +1,5 @@
 package keyboard.works.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,21 +9,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+@ToString
 @Entity
 @Table(name = "goods_receipt_item")
-public class GoodsReceiptItem extends BaseEntity {
+public class GoodsReceiptItem extends InventoryTransactionItem {
 
-	@Column(name = "receipted")
-	private BigDecimal receipted;
-	
-	@Column(name = "price")
-	private BigDecimal price;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_product")
-	@LazyToOne(LazyToOneOption.PROXY)
-	private Product product;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_goods_receipt")
 	@LazyToOne(LazyToOneOption.PROXY)
