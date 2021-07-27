@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import keyboard.works.entity.GoodsReceipt;
 import keyboard.works.entity.GoodsReceiptItem;
 import keyboard.works.entity.Product;
+import keyboard.works.entity.ProductPackaging;
 import keyboard.works.model.request.GoodsReceiptItemRequest;
 import keyboard.works.model.request.GoodsReceiptRequest;
 import keyboard.works.repository.GoodsReceiptItemRepository;
 import keyboard.works.repository.GoodsReceiptRepository;
 import keyboard.works.service.GoodsReceiptService;
+import keyboard.works.service.ProductPackagingService;
 import keyboard.works.service.ProductService;
 
 @Service
@@ -32,6 +36,9 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductPackagingService productPackagingService;
 	
 	@Override
 	public GoodsReceipt createGoodsReceipt(GoodsReceiptRequest request) {
@@ -122,8 +129,10 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		BeanUtils.copyProperties(requestItem, goodsReceiptItem);
 		
 		Product product = productService.getProduct(requestItem.getProduct());
+		ProductPackaging productPackaging = productPackagingService.getProductPackaging(requestItem.getProductPackaging());
 		
 		goodsReceiptItem.setProduct(product);
+		goodsReceiptItem.setProductPackaging(productPackaging);
 		goodsReceiptItem.setGoodsReceipt(goodsReceipt);
 		
 		return goodsReceiptItem;

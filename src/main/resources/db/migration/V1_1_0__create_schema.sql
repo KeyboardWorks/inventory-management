@@ -1,4 +1,4 @@
-CREATE TABLE product_category (
+CREATE TABLE IF NOT EXISTS product_category (
 
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
@@ -16,7 +16,7 @@ CREATE TABLE product_category (
 
 );
 
-CREATE TABLE product (
+CREATE TABLE IF NOT EXISTS product (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -30,7 +30,7 @@ CREATE TABLE product (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE product_packaging (
+CREATE TABLE IF NOT EXISTS product_packaging (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE product_packaging (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE unit_of_measure (
+CREATE TABLE IF NOT EXISTS unit_of_measure (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -57,7 +57,7 @@ CREATE TABLE unit_of_measure (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE goods_receipt (
+CREATE TABLE IF NOT EXISTS goods_receipt (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -71,14 +71,14 @@ CREATE TABLE goods_receipt (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE goods_receipt_item (
+CREATE TABLE IF NOT EXISTS goods_receipt_item (
     id VARCHAR(36) NOT NULL,
     fk_goods_receipt VARCHAR(36),
 
     PRIMARY KEY(id)
 );
 
-CREATE TABLE inventory_transaction_item (
+CREATE TABLE IF NOT EXISTS inventory_transaction_item (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -87,11 +87,12 @@ CREATE TABLE inventory_transaction_item (
     receipted DECIMAL(19,2) DEFAULT 0,
     price DECIMAL(19,2) DEFAULT 0,
     fk_product VARCHAR(36),
+    fk_product_packaging VARCHAR(36),
 
     PRIMARY KEY(id)
 );
 
-CREATE TABLE product_in_out_transaction (
+CREATE TABLE IF NOT EXISTS product_in_out_transaction (
     id VARCHAR(36) NOT NULL,
     created_by VARCHAR(50),
     created_date_time TIMESTAMP,
@@ -102,6 +103,7 @@ CREATE TABLE product_in_out_transaction (
     quantity_left DECIMAL(19,2) DEFAULT 0,
     price DECIMAL(19,2) DEFAULT 0,
     fk_product VARCHAR(36),
+    fk_product_packaging VARCHAR(36),
     fk_inventory_transaction_item VARCHAR(36),
 
     PRIMARY KEY(id)

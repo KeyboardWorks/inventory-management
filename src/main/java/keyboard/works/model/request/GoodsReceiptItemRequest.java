@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class GoodsReceiptItemRequest {
 
-	@NotNull(message = "Receipted is mandatory", groups = UpdateData.class)
+	@NotNull(message = "Id is mandatory", groups = UpdateData.class)
 	private String id;
 	
 	@NotNull(message = "Receipted is mandatory", groups = {CreateData.class, UpdateData.class})
@@ -25,7 +25,10 @@ public class GoodsReceiptItemRequest {
 	@Positive(message = "Price must greather than zero", groups = {CreateData.class, UpdateData.class})
 	private BigDecimal price;
 	
-	@NotNull(message = "Product To Base is mandatory", groups = {CreateData.class, UpdateData.class})
+	@NotNull(message = "Product is mandatory", groups = {CreateData.class, UpdateData.class})
 	private String product;
+
+	@NotNull(message = "Product Packaging is mandatory", groups = {CreateData.class, UpdateData.class})
+	private String productPackaging;
 	
 }

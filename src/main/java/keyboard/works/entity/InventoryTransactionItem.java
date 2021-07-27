@@ -44,6 +44,11 @@ public abstract class InventoryTransactionItem extends BaseEntity {
 	@LazyToOne(LazyToOneOption.PROXY)
 	private Product product;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_product_packaging")
+	@LazyToOne(LazyToOneOption.PROXY)
+	private ProductPackaging productPackaging;
+	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@OneToMany(mappedBy = "inventoryTransactionItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

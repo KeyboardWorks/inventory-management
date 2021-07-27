@@ -32,6 +32,7 @@ public class ProductInOutTransaction extends BaseEntity {
 	@Column(name = "quantity")
 	private BigDecimal quantity;
 	
+	//Convert Into Base Quantity
 	@Column(name = "quantity_left")
 	private BigDecimal quantityLeft;
 	
@@ -44,12 +45,17 @@ public class ProductInOutTransaction extends BaseEntity {
 	private Product product;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_product_packaging")
+	@LazyToOne(LazyToOneOption.PROXY)
+	private ProductPackaging productPackaging;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_inventory_transaction_item")
 	@LazyToOne(LazyToOneOption.PROXY)
 	private InventoryTransactionItem inventoryTransactionItem;
 	
 	public BigDecimal getTotalPrice() {
-		return quantityLeft.multiply(price);
+		return quantity.multiply(price);
 	}
 	
 }
