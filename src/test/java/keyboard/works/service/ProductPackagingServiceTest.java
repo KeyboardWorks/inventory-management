@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ public class ProductPackagingServiceTest {
 		request.setProduct("003");
 		request.setUnitOfMeasure("001");
 	
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productPackagingService.createProductPacking(request);
 		});
 		
@@ -69,7 +70,7 @@ public class ProductPackagingServiceTest {
 		request.setProduct("001");
 		request.setUnitOfMeasure("003");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productPackagingService.createProductPacking(request);
 		});
 		
@@ -111,7 +112,7 @@ public class ProductPackagingServiceTest {
 		request.setProduct("001");
 		request.setUnitOfMeasure("001");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productPackagingService.updateProductPackaging("003", request);
 		});
 		
@@ -125,7 +126,7 @@ public class ProductPackagingServiceTest {
 		request.setProduct("001");
 		request.setUnitOfMeasure("003");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productPackagingService.updateProductPackaging("001", request);
 		});
 		

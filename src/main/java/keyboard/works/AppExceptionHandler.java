@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -59,6 +60,12 @@ public class AppExceptionHandler {
 		}
 		
 		return GenericResponseHelper.badRequest(errors);
+	}
+	
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(EntityNotFoundException.class)
+	public GenericResponse<?> handlerEntityNotFoundException(Exception exception, WebRequest webRequest) {
+		return GenericResponseHelper.notFound(exception.getMessage());
 	}
 
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

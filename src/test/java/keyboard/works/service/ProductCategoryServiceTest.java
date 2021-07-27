@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class ProductCategoryServiceTest {
 	@Test
 	public void getProductCategory_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productCategoryService.getProductCategory("003");
 		});
 		
@@ -105,7 +106,7 @@ public class ProductCategoryServiceTest {
 		request.setCode("Product Category Code 3");
 		request.setName("Product Category Name 3");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productCategoryService.updateProductCategory("003", request);
 		});
 	}
@@ -124,7 +125,7 @@ public class ProductCategoryServiceTest {
 		
 		productCategoryService.deleteProductCategory("001");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productCategoryService.getProductCategory("001");
 		});
 		
@@ -133,7 +134,7 @@ public class ProductCategoryServiceTest {
 	@Test
 	public void deleteProductCategory_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productCategoryService.getProductCategory("003");
 		});
 		

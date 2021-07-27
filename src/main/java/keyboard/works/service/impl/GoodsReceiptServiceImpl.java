@@ -108,7 +108,7 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 	private GoodsReceipt loadGoodsReceipt(String id) {
 		
 		GoodsReceipt goodsReceipt = goodsReceiptRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException("Goods Receipt not found!");
+			return new EntityNotFoundException("Goods Receipt not found!");
 		});
 		
 		return goodsReceipt;
@@ -117,7 +117,7 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 	private GoodsReceiptItem loadGoodsReceiptItem(String id) {
 		
 		GoodsReceiptItem goodsReceiptItem = goodsReceiptItemRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException("Goods Receipt Item not found!");
+			return new EntityNotFoundException("Goods Receipt Item not found!");
 		});
 		
 		return goodsReceiptItem;
