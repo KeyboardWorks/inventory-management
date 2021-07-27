@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import keyboard.works.SpringAppContext;
 import keyboard.works.entity.GoodsReceipt;
 import keyboard.works.entity.GoodsReceiptItem;
+import keyboard.works.entity.InventoryMethod;
+import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.Product;
 import keyboard.works.entity.ProductPackaging;
 import keyboard.works.model.request.GoodsReceiptItemRequest;
@@ -21,6 +24,7 @@ import keyboard.works.model.request.GoodsReceiptRequest;
 import keyboard.works.repository.GoodsReceiptItemRepository;
 import keyboard.works.repository.GoodsReceiptRepository;
 import keyboard.works.service.GoodsReceiptService;
+import keyboard.works.service.InventoryInService;
 import keyboard.works.service.ProductPackagingService;
 import keyboard.works.service.ProductService;
 
@@ -135,7 +139,22 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		goodsReceiptItem.setProductPackaging(productPackaging);
 		goodsReceiptItem.setGoodsReceipt(goodsReceipt);
 		
+		doInventoryIn(goodsReceiptItem);
+		
 		return goodsReceiptItem;
+	}
+	
+	private void doInventoryIn(InventoryTransactionItem inventoryTransactionItem) {
+		SpringAppContext.getContext().getBeansOfType(InventoryInService.class).values().stream()
+		.filter(inService -> {
+			return inService.isSupport(InventoryMethod.FIFO);
+		})
+		.findFirst()
+		.ifPresentOrElse(inService -> {
+			inService.execute(inventoryTransactionItem);
+		}, () -> {
+			throw new RuntimeException("Inventory In method FIFO not support !");
+		});
 	}
 
 }

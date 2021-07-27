@@ -1,6 +1,7 @@
 package keyboard.works.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -54,5 +55,7 @@ public abstract class InventoryTransactionItem extends BaseEntity {
 	@OneToMany(mappedBy = "inventoryTransactionItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.EXTRA)
 	private Set<ProductInOutTransaction> inOutTransactions;
+	
+	public abstract LocalDate getDate();
 	
 }

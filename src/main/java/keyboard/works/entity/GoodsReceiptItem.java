@@ -1,5 +1,7 @@
 package keyboard.works.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -26,5 +28,10 @@ public class GoodsReceiptItem extends InventoryTransactionItem {
 	@JoinColumn(name = "fk_goods_receipt")
 	@LazyToOne(LazyToOneOption.PROXY)
 	private GoodsReceipt goodsReceipt;
+
+	@Override
+	public LocalDate getDate() {
+		return getGoodsReceipt().getDate();
+	}
 	
 }
