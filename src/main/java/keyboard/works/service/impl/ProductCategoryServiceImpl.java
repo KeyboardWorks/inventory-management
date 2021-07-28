@@ -2,6 +2,7 @@ package keyboard.works.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -73,7 +74,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	
 	private ProductCategory loadProductCategory(String id, String message) {
 		ProductCategory productCategory = productCategoryRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException(message);
+			throw new EntityNotFoundException(message);
 		});
 		
 		return productCategory;

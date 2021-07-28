@@ -11,6 +11,8 @@ import keyboard.works.model.request.ProductPackagingRequest;
 @Validated
 public interface ProductPackagingService {
 
+	ProductPackaging getProductPackaging(String id);
+	
 	ProductPackaging createProductPacking(@Valid ProductPackagingRequest request);
 	
 	ProductPackaging updateProductPackaging(String id, @Valid ProductPackagingRequest request);

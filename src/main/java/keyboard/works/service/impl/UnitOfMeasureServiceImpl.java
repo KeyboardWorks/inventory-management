@@ -2,6 +2,7 @@ package keyboard.works.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -68,7 +69,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 	private UnitOfMeasure loadUnitOfMeasure(String id) {
 		
 		UnitOfMeasure unitOfMeasure = unitOfMeasureRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException("Unit of measure not found !");
+			return new EntityNotFoundException("Unit of measure not found !");
 		});
 	
 		return unitOfMeasure;

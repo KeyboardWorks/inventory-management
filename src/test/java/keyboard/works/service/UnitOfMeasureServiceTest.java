@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,7 @@ public class UnitOfMeasureServiceTest {
 	@Test
 	public void getUnitOfMeasure_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			unitOfMeasureService.getUnitOfMeasure("003");
 		});
 		
@@ -108,7 +109,7 @@ public class UnitOfMeasureServiceTest {
 		request.setName("Unit Of Measure Name 3");
 		request.setType(UnitOfMeasureType.WEIGHT);
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			unitOfMeasureService.updateUnitOfMeasure("003", request);
 		});
 	}
@@ -127,7 +128,7 @@ public class UnitOfMeasureServiceTest {
 		
 		unitOfMeasureService.deleteUnitOfMeasure("001");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			unitOfMeasureService.getUnitOfMeasure("001");
 		});
 		
@@ -136,7 +137,7 @@ public class UnitOfMeasureServiceTest {
 	@Test
 	public void deleteUnitOfMeasure_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			unitOfMeasureService.getUnitOfMeasure("003");
 		});
 		

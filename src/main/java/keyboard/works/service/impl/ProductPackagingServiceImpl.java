@@ -2,6 +2,7 @@ package keyboard.works.service.impl;
 
 import java.math.BigDecimal;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -52,7 +53,7 @@ public class ProductPackagingServiceImpl implements ProductPackagingService {
 		
 		ProductPackaging productPackaging = productPackagingRepository.findByIdAndProduct_Id(id, request.getProduct())
 			.orElseThrow(() -> {
-				throw new RuntimeException("Product Packaging not found");
+				return new EntityNotFoundException("Product Packaging not found");
 			});
 		
 		BeanUtils.copyProperties(request, productPackaging);
@@ -81,10 +82,27 @@ public class ProductPackagingServiceImpl implements ProductPackagingService {
 	private Product loadProduct(String id) {
 		
 		Product product = productRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException("Product not found !");
+			return new EntityNotFoundException("Product not found !");
 		});
 		
 		return product;
+	}
+
+	@Override
+	public ProductPackaging getProductPackaging(String id) {
+		
+		ProductPackaging productPackaging = loadProductPackaging(id);
+		
+		return productPackaging;
+	}
+	
+	private ProductPackaging loadProductPackaging(String id) {
+		
+		ProductPackaging productPackaging = productPackagingRepository.findById(id).orElseThrow(() -> {
+			return new EntityNotFoundException("Product Packaging not found !");
+		});
+		
+		return productPackaging;
 	}
 	
 }

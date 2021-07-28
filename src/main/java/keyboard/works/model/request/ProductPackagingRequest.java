@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class ProductPackagingRequest {
 
-	@NotNull(message = "Code is mandatory")
+	@NotNull(message = "Quantity To Base is mandatory")
 	@Positive(message = "Quantity To Base must greather than zero")
 	private BigDecimal quantityToBase;
 	

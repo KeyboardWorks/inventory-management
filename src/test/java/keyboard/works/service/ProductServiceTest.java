@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,8 @@ import keyboard.works.model.request.ProductRequest;
 
 @SpringBootTest
 @Sql(scripts = {"/sql/product-delete.sql", "/sql/product-insert.sql",
-		"/sql/product-category-delete.sql", "/sql/product-category-insert.sql"})
+		"/sql/product-category-delete.sql", "/sql/product-category-insert.sql",
+		"/sql/unit-of-measure-delete.sql", "/sql/unit-of-measure-insert.sql"})
 @Transactional
 public class ProductServiceTest {
 
@@ -65,7 +67,7 @@ public class ProductServiceTest {
 	@Test
 	public void getProduct_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productService.getProduct("003");
 		});
 		
@@ -102,7 +104,7 @@ public class ProductServiceTest {
 		request.setName("Product Name 3");
 		request.setProductCategory("003");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productService.createProduct(request);
 		});
 		
@@ -144,7 +146,7 @@ public class ProductServiceTest {
 		request.setName("Product Name 3");
 		request.setProductCategory("001");
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productService.updateProduct("003", request);
 		});
 		
@@ -166,7 +168,7 @@ public class ProductServiceTest {
 		
 		productService.deleteProduct("001");
 
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productService.getProduct("001");
 		});
 		
@@ -175,7 +177,7 @@ public class ProductServiceTest {
 	@Test
 	public void deleteProduct_NotFoundTest() {
 		
-		assertThrows(RuntimeException.class, () -> {
+		assertThrows(EntityNotFoundException.class, () -> {
 			productService.deleteProduct("003");
 		});
 		

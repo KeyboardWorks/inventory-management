@@ -26,7 +26,7 @@ public class SwaggerConfiguration {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Inventory Management")
-				.description("Making inventory management (Fifo, Lifo, Averange, Goods Receipt, Goods Issue, etc)")
+				.description("Making inventory management (Fifo, Lifo, Average, Goods Receipt, Goods Issue, etc)")
 				.version("0.0.1")
 				.build();
 	}

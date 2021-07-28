@@ -3,6 +3,7 @@ package keyboard.works.service.impl;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -83,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
 	private Product loadProduct(String id) {
 		
 		Product product = productRepository.findById(id).orElseThrow(() -> {
-			throw new RuntimeException("Product not found !");
+			throw new EntityNotFoundException("Product not found !");
 		});
 		
 		return product;

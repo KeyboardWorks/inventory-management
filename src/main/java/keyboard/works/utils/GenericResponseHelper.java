@@ -42,6 +42,10 @@ public class GenericResponseHelper {
 		return status(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage);
 	}
 	
+	public static <T> GenericResponse<T> notFound(String errorMessage) {
+		return status(HttpStatus.NOT_FOUND, errorMessage);
+	}
+	
 	private static <T> GenericResponse<T> status(HttpStatus status) {
 		return status(status, null, null);
 	}
