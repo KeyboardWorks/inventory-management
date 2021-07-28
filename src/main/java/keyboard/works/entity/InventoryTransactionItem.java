@@ -58,4 +58,6 @@ public abstract class InventoryTransactionItem extends BaseEntity {
 	
 	public abstract LocalDate getDate();
 	
+	public abstract InventoryType getType();
+	
 }

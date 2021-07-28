@@ -1,12 +1,9 @@
 package keyboard.works.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,22 +22,11 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity
-@Table(name = "product_in_out_transaction")
-public class ProductInOutTransaction extends BaseEntity {
+@Table(name = "product_average_price")
+public class ProductAveragePrice extends BaseEntity {
 
-	@Column(name = "date")
-	private LocalDate date;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "type")
-	private InventoryType type;
-	
 	@Column(name = "quantity")
 	private BigDecimal quantity;
-	
-	//Convert Into Base Quantity
-	@Column(name = "quantity_left")
-	private BigDecimal quantityLeft;
 	
 	@Column(name = "price")
 	private BigDecimal price;
@@ -54,11 +40,6 @@ public class ProductInOutTransaction extends BaseEntity {
 	@JoinColumn(name = "fk_product_packaging")
 	@LazyToOne(LazyToOneOption.PROXY)
 	private ProductPackaging productPackaging;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_inventory_transaction_item")
-	@LazyToOne(LazyToOneOption.PROXY)
-	private InventoryTransactionItem inventoryTransactionItem;
 	
 	public BigDecimal getTotalPrice() {
 		return quantity.multiply(price);

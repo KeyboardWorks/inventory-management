@@ -1,6 +1,6 @@
 package keyboard.works.entity;
 
-public enum InventoryMethod {
+public enum InventoryMethodType {
 
 	FIFO, LIFO, AVERANGE
 	

@@ -99,12 +99,27 @@ CREATE TABLE IF NOT EXISTS product_in_out_transaction (
     last_modified_by VARCHAR(50),
     last_modified_date_time TIMESTAMP,
     date DATE NOT NULL,
+    type VARCHAR(3) NOT NULL,
     quantity DECIMAL(19,2) DEFAULT 0,
     quantity_left DECIMAL(19,2) DEFAULT 0,
     price DECIMAL(19,2) DEFAULT 0,
     fk_product VARCHAR(36),
     fk_product_packaging VARCHAR(36),
     fk_inventory_transaction_item VARCHAR(36),
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS product_average_price (
+    id VARCHAR(36) NOT NULL,
+    created_by VARCHAR(50),
+    created_date_time TIMESTAMP,
+    last_modified_by VARCHAR(50),
+    last_modified_date_time TIMESTAMP,
+    quantity DECIMAL(19,2) DEFAULT 0,
+    price DECIMAL(19,2) DEFAULT 0,
+    fk_product VARCHAR(36),
+    fk_product_packaging VARCHAR(36),
 
     PRIMARY KEY(id)
 );

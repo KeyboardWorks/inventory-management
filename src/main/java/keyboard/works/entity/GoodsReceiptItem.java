@@ -30,8 +30,13 @@ public class GoodsReceiptItem extends InventoryTransactionItem {
 	private GoodsReceipt goodsReceipt;
 
 	@Override
+	public InventoryType getType() {
+		return InventoryType.IN;
+	}
+	
+	@Override
 	public LocalDate getDate() {
 		return getGoodsReceipt().getDate();
 	}
-	
+
 }

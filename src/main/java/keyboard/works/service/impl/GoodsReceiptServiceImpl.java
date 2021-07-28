@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import keyboard.works.SpringAppContext;
 import keyboard.works.entity.GoodsReceipt;
 import keyboard.works.entity.GoodsReceiptItem;
-import keyboard.works.entity.InventoryMethod;
+import keyboard.works.entity.InventoryMethodType;
 import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.Product;
 import keyboard.works.entity.ProductPackaging;
@@ -60,6 +60,8 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		goodsReceipt.getItems().addAll(items);
 		
 		GoodsReceipt storedGoodsReceipt = goodsReceiptRepository.save(goodsReceipt);
+		storedGoodsReceipt.getItems()
+			.forEach(this::doInventoryIn);
 		
 		return storedGoodsReceipt;
 	}
@@ -139,22 +141,20 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		goodsReceiptItem.setProductPackaging(productPackaging);
 		goodsReceiptItem.setGoodsReceipt(goodsReceipt);
 		
-		doInventoryIn(goodsReceiptItem);
-		
 		return goodsReceiptItem;
 	}
 	
 	private void doInventoryIn(InventoryTransactionItem inventoryTransactionItem) {
 		SpringAppContext.getContext().getBeansOfType(InventoryInService.class).values().stream()
-		.filter(inService -> {
-			return inService.isSupport(InventoryMethod.FIFO);
-		})
-		.findFirst()
-		.ifPresentOrElse(inService -> {
-			inService.execute(inventoryTransactionItem);
-		}, () -> {
-			throw new RuntimeException("Inventory In method FIFO not support !");
-		});
+			.filter(inService -> {
+				return inService.isSupport(InventoryMethodType.AVERANGE);
+			})
+			.findFirst()
+			.ifPresentOrElse(inService -> {
+				inService.execute(inventoryTransactionItem);
+			}, () -> {
+				throw new RuntimeException("Inventory In method Averange not support !");
+			});
 	}
 
 }

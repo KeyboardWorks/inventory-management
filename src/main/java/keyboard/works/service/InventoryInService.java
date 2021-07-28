@@ -1,11 +1,11 @@
 package keyboard.works.service;
 
-import keyboard.works.entity.InventoryMethod;
+import keyboard.works.entity.InventoryMethodType;
 import keyboard.works.entity.InventoryTransactionItem;
 
 public interface InventoryInService {
 
-	boolean isSupport(InventoryMethod inventoryMethod);
+	boolean isSupport(InventoryMethodType inventoryMethod);
 	
 	void execute(InventoryTransactionItem inventoryTransactionItem);
 	
