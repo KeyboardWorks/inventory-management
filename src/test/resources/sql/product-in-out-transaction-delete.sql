@@ -1,0 +1,1 @@
+DELETE FROM product_in_out_transaction;
