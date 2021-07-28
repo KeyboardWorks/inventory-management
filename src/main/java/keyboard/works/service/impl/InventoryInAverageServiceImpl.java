@@ -29,13 +29,13 @@ public class InventoryInAverageServiceImpl implements InventoryInService {
 	
 	@Override
 	public boolean isSupport(InventoryMethodType inventoryMethod) {
-		return inventoryMethod.equals(InventoryMethodType.AVERANGE);
+		return inventoryMethod.equals(InventoryMethodType.AVERAGE);
 	}
 
 	@Override
 	public void execute(InventoryTransactionItem inventoryTransactionItem) {
 		
-		ProductInOutTransaction productInOutTransaction = ProductInOutTransactionFactory.createInAverangeTransaction(inventoryTransactionItem);
+		ProductInOutTransaction productInOutTransaction = ProductInOutTransactionFactory.createInAverageTransaction(inventoryTransactionItem);
 		productInOutTransactionRepository.save(productInOutTransaction);
 		
 		ProductAveragePrice averageTransaction = productAveragePriceRepository.

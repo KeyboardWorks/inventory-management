@@ -12,7 +12,7 @@
 	<artifactId>inventory-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inventory-management</name>
-	<description>Making inventory management (Fifo, Lifo, Averange, Goods Receipt, Goods Issue, etc)</description>
+	<description>Making inventory management (Fifo, Lifo, Average, Goods Receipt, Goods Issue, etc)</description>
 	<properties>
 		<java.version>15</java.version>
 	</properties>

@@ -14,7 +14,7 @@ public class ProductInOutTransactionFactory {
 		return createInTransaction(inventoryTransactionItem, quantityLeft);
 	}
 	
-	public static ProductInOutTransaction createInAverangeTransaction(InventoryTransactionItem inventoryTransactionItem) {
+	public static ProductInOutTransaction createInAverageTransaction(InventoryTransactionItem inventoryTransactionItem) {
 		return createInTransaction(inventoryTransactionItem, BigDecimal.ZERO);
 	}
 	

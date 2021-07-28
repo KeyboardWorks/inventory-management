@@ -147,13 +147,13 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 	private void doInventoryIn(InventoryTransactionItem inventoryTransactionItem) {
 		SpringAppContext.getContext().getBeansOfType(InventoryInService.class).values().stream()
 			.filter(inService -> {
-				return inService.isSupport(InventoryMethodType.AVERANGE);
+				return inService.isSupport(InventoryMethodType.AVERAGE);
 			})
 			.findFirst()
 			.ifPresentOrElse(inService -> {
 				inService.execute(inventoryTransactionItem);
 			}, () -> {
-				throw new RuntimeException("Inventory In method Averange not support !");
+				throw new RuntimeException("Inventory In method Average not support !");
 			});
 	}
 
