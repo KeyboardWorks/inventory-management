@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import keyboard.works.entity.InventoryMethodType;
+import keyboard.works.entity.InventoryTransactionInItem;
 import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.ProductAveragePrice;
 import keyboard.works.entity.ProductInOutTransaction;
@@ -31,10 +32,9 @@ public class InventoryInAverageServiceImpl implements InventoryInService {
 	public boolean isSupport(InventoryMethodType inventoryMethod) {
 		return inventoryMethod.equals(InventoryMethodType.AVERAGE);
 	}
-
+	
 	@Override
-	public void execute(InventoryTransactionItem inventoryTransactionItem) {
-		
+	public <T extends InventoryTransactionItem & InventoryTransactionInItem> void execute(T inventoryTransactionItem) {
 		ProductInOutTransaction productInOutTransaction = ProductInOutTransactionFactory.createInAverageTransaction(inventoryTransactionItem);
 		productInOutTransactionRepository.save(productInOutTransaction);
 		
@@ -50,11 +50,11 @@ public class InventoryInAverageServiceImpl implements InventoryInService {
 		averageTransaction.setQuantity(averageTransaction.getQuantity().add(inventoryTransactionItem.getReceipted()));
 		averageTransaction.setPrice(lastPrice.divide(averageTransaction.getQuantity(), 2, RoundingMode.HALF_UP));
 		
-		productAveragePriceRepository.save(averageTransaction);
+		productAveragePriceRepository.save(averageTransaction);	
 	}
 	
 	private ProductAveragePrice createDefaultAveragePrice(InventoryTransactionItem inventoryTransactionItem) {
-	
+		
 		ProductAveragePrice averageTransaction = new ProductAveragePrice();
 		BeanUtils.copyProperties(inventoryTransactionItem, averageTransaction, "price");
 		averageTransaction.setPrice(BigDecimal.ZERO);

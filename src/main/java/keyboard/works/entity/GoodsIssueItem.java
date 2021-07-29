@@ -1,9 +1,7 @@
 package keyboard.works.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -23,25 +21,22 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity
-@Table(name = "goods_receipt_item")
-public class GoodsReceiptItem extends InventoryTransactionItem implements InventoryTransactionInItem {
+@Table(name = "goods_issue_item")
+public class GoodsIssueItem extends InventoryTransactionItem implements InventoryItemOutTransaction {
 
-	@Column(name = "price")
-	private BigDecimal price;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_goods_receipt")
+	@JoinColumn(name = "fk_goods_issue")
 	@LazyToOne(LazyToOneOption.PROXY)
-	private GoodsReceipt goodsReceipt;
-
-	@Override
-	public InventoryType getType() {
-		return InventoryType.IN;
-	}
+	private GoodsIssue goodsIssue;
 	
 	@Override
 	public LocalDate getDate() {
-		return getGoodsReceipt().getDate();
+		return getGoodsIssue().getDate();
+	}
+
+	@Override
+	public InventoryType getType() {
+		return InventoryType.OUT;
 	}
 
 }

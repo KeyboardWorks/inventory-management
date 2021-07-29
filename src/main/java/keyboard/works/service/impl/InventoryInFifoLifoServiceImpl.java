@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import keyboard.works.entity.InventoryMethodType;
+import keyboard.works.entity.InventoryTransactionInItem;
 import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.ProductInOutTransaction;
 import keyboard.works.factory.ProductInOutTransactionFactory;
@@ -24,9 +25,10 @@ public class InventoryInFifoLifoServiceImpl implements InventoryInService {
 	}
 
 	@Override
-	public void execute(InventoryTransactionItem inventoryTransactionItem) {
+	public <T extends InventoryTransactionItem & InventoryTransactionInItem> void execute(T inventoryTransactionItem) {
 		ProductInOutTransaction productInOutTransaction = ProductInOutTransactionFactory.createInTransaction(inventoryTransactionItem);
-		productInOutTransactionRepository.save(productInOutTransaction);
+		productInOutTransactionRepository.save(productInOutTransaction);			
 	}
+
 
 }

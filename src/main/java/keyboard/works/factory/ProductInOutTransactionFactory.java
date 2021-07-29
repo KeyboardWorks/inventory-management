@@ -4,25 +4,26 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.BeanUtils;
 
+import keyboard.works.entity.InventoryTransactionInItem;
 import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.ProductInOutTransaction;
 
 public class ProductInOutTransactionFactory {
 
-	public static ProductInOutTransaction createInTransaction(InventoryTransactionItem inventoryTransactionItem) {
+	public static <T extends InventoryTransactionItem & InventoryTransactionInItem> ProductInOutTransaction createInTransaction(T inventoryTransactionItem) {
 		BigDecimal quantityLeft = inventoryTransactionItem.getReceipted().multiply(inventoryTransactionItem.getProductPackaging().getQuantityToBase());
 		return createInTransaction(inventoryTransactionItem, quantityLeft);
 	}
 	
-	public static ProductInOutTransaction createInAverageTransaction(InventoryTransactionItem inventoryTransactionItem) {
+	public static <T extends InventoryTransactionItem & InventoryTransactionInItem> ProductInOutTransaction createInAverageTransaction(T inventoryTransactionItem) {
 		return createInTransaction(inventoryTransactionItem, BigDecimal.ZERO);
 	}
 	
-	private static ProductInOutTransaction createInTransaction(InventoryTransactionItem inventoryTransactionItem, BigDecimal quantityLeft) {
-		return createTransaction(inventoryTransactionItem, inventoryTransactionItem.getReceipted(), quantityLeft);
+	private static <T extends InventoryTransactionItem & InventoryTransactionInItem> ProductInOutTransaction createInTransaction(T inventoryTransactionItem, BigDecimal quantityLeft) {
+		return createInTransaction(inventoryTransactionItem, inventoryTransactionItem.getReceipted(), quantityLeft);
 	}
 	
-	private static ProductInOutTransaction createTransaction(InventoryTransactionItem inventoryTransactionItem, BigDecimal quantity, BigDecimal quantityLeft) {
+	private static <T extends InventoryTransactionItem & InventoryTransactionInItem> ProductInOutTransaction createInTransaction(T inventoryTransactionItem, BigDecimal quantity, BigDecimal quantityLeft) {
 		ProductInOutTransaction productInOutTransaction = new ProductInOutTransaction();
 		BeanUtils.copyProperties(inventoryTransactionItem, productInOutTransaction);
 		

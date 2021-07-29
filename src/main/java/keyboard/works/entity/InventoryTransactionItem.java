@@ -37,8 +37,8 @@ public abstract class InventoryTransactionItem extends BaseEntity {
 	@Column(name = "receipted")
 	private BigDecimal receipted;
 	
-	@Column(name = "price")
-	private BigDecimal price;
+	@Column(name = "issued")
+	private BigDecimal issued;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_product")

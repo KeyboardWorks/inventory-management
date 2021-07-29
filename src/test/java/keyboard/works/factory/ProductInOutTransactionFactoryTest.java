@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import keyboard.works.entity.InventoryTransactionInItem;
 import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.InventoryType;
 import keyboard.works.entity.Product;
@@ -45,7 +46,7 @@ public class ProductInOutTransactionFactoryTest {
 	@Test
 	public void createInTransactionTest() {
 		
-		InventoryTransactionItem inventoryTransactionItem = createInventoryTransactionItem(new BigDecimal(5), new BigDecimal(5_000));
+		InventoryTransactionItemExample inventoryTransactionItem = createInventoryTransactionItem(new BigDecimal(5), new BigDecimal(5_000));
 		
 		ProductInOutTransaction productInOutTransaction = ProductInOutTransactionFactory.createInTransaction(inventoryTransactionItem);
 		
@@ -61,27 +62,34 @@ public class ProductInOutTransactionFactoryTest {
 		
 	}
 	
-	public InventoryTransactionItem createInventoryTransactionItem(BigDecimal receipted, BigDecimal price) {
+	public InventoryTransactionItemExample createInventoryTransactionItem(BigDecimal receipted, BigDecimal price) {
 		
-		InventoryTransactionItem inventoryTransactionItem = new InventoryTransactionItem() {
-			
-			@Override
-			public InventoryType getType() {
-				return InventoryType.IN;
-			}
-			
-			@Override
-			public LocalDate getDate() {
-				return LocalDate.now();
-			}
-		};
+		InventoryTransactionItemExample inventoryTransactionItem = new InventoryTransactionItemExample();
 		
 		inventoryTransactionItem.setProduct(product);
 		inventoryTransactionItem.setProductPackaging(productPackaging);
 		inventoryTransactionItem.setReceipted(receipted);
-		inventoryTransactionItem.setPrice(price);
 		
 		return inventoryTransactionItem;
+	}
+	
+	class InventoryTransactionItemExample extends InventoryTransactionItem implements InventoryTransactionInItem {
+
+		@Override
+		public BigDecimal getPrice() {
+			return new BigDecimal(10_000);
+		}
+
+		@Override
+		public LocalDate getDate() {
+			return LocalDate.now();
+		}
+
+		@Override
+		public InventoryType getType() {
+			return InventoryType.IN;
+		}
+
 	}
 	
 }

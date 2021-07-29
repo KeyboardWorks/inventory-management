@@ -16,7 +16,6 @@ import keyboard.works.SpringAppContext;
 import keyboard.works.entity.GoodsReceipt;
 import keyboard.works.entity.GoodsReceiptItem;
 import keyboard.works.entity.InventoryMethodType;
-import keyboard.works.entity.InventoryTransactionItem;
 import keyboard.works.entity.Product;
 import keyboard.works.entity.ProductPackaging;
 import keyboard.works.model.request.GoodsReceiptItemRequest;
@@ -72,20 +71,22 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		GoodsReceipt goodsReceipt = loadGoodsReceipt(id);
 		BeanUtils.copyProperties(request, goodsReceipt);
 		
-		GoodsReceipt udpatedGoodsReceipt = goodsReceiptRepository.save(goodsReceipt);
-		
 		request.getItems().forEach(requestItem -> {
 			
 			GoodsReceiptItem goodsReceiptItem = loadGoodsReceiptItem(requestItem.getId());
 			BeanUtils.copyProperties(requestItem, goodsReceiptItem);
 			
 			Product product = productService.getProduct(requestItem.getProduct());
+			ProductPackaging productPackaging = productPackagingService.getProductPackaging(requestItem.getProductPackaging());
 			
 			goodsReceiptItem.setProduct(product);
+			goodsReceiptItem.setProductPackaging(productPackaging);
 			
 			goodsReceiptItemRepository.save(goodsReceiptItem);
 			
 		});
+		
+		GoodsReceipt udpatedGoodsReceipt = goodsReceiptRepository.save(goodsReceipt);
 		
 		return udpatedGoodsReceipt;
 	}
@@ -144,14 +145,14 @@ public class GoodsReceiptServiceImpl implements GoodsReceiptService {
 		return goodsReceiptItem;
 	}
 	
-	private void doInventoryIn(InventoryTransactionItem inventoryTransactionItem) {
+	private void doInventoryIn(GoodsReceiptItem goodsReceiptItem) {
 		SpringAppContext.getContext().getBeansOfType(InventoryInService.class).values().stream()
 			.filter(inService -> {
 				return inService.isSupport(InventoryMethodType.AVERAGE);
 			})
 			.findFirst()
 			.ifPresentOrElse(inService -> {
-				inService.execute(inventoryTransactionItem);
+				inService.execute(goodsReceiptItem);
 			}, () -> {
 				throw new RuntimeException("Inventory In method Average not support !");
 			});
