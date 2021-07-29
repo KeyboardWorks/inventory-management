@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "goods_issue_item")
-public class GoodsIssueItem extends InventoryTransactionItem implements InventoryItemOutTransaction {
+public class GoodsIssueItem extends InventoryTransactionItem implements InventoryTransactionOutItem {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_goods_issue")
