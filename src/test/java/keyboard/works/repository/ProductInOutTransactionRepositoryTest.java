@@ -1,5 +1,10 @@
 package keyboard.works.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,7 @@ public class ProductInOutTransactionRepositoryTest {
 		});
 	}
 	
+	@Disabled
 	@Test
 	public void availableStockTest() {
 		
@@ -36,6 +42,17 @@ public class ProductInOutTransactionRepositoryTest {
 			System.out.println(inOut.getCreatedDateTime());
 			System.out.println(inOut.getQuantity());
 		});;
+		
+	}
+	
+	@Test
+	@Sql(scripts = "/sql/product-in-out-transaction-delete.sql")
+	public void availableStock_EmptyInTest() {
+		
+		BigDecimal availableStock = productInOutTransactionRepository.getAvailableStock("001", "001");
+		
+		assertNotNull(availableStock);
+		assertEquals(BigDecimal.ZERO, availableStock);
 		
 	}
 	

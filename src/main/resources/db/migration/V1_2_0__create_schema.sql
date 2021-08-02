@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS product_in_out_transaction (
     fk_product VARCHAR(36),
     fk_product_packaging VARCHAR(36),
     fk_inventory_transaction_item VARCHAR(36),
+    fk_product_in_out_transaction_in_from VARCHAR(36),
 
     PRIMARY KEY(id)
 );
